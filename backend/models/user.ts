@@ -126,7 +126,7 @@ userSchema.methods.generateAuthToken = async function() {
     const iv = crypto.randomBytes(16);
 
     const user = this; 
-    let token = jwt.sign({_id:user._id.toString(), iv}, env.password!);
+    let token = jwt.sign({_id:user._id.toString(), iv}, env.password!, {expiresIn:"5h"});
 
     const encryptionKey = user.getEncryptionKey();
 
@@ -243,7 +243,7 @@ userSchema.methods.generateTempAuthToken = async function() {
     const iv = crypto.randomBytes(16);
 
     const user = this as UserInterface; 
-    const token = jwt.sign({_id:user._id.toString(), iv}, env.password!, {expiresIn: "3000ms"});
+    const token = jwt.sign({_id:user._id.toString(), iv}, env.password!, {expiresIn: "1h"});
 
     const encryptionKey = user.getEncryptionKey();
     const encryptedToken = user.encryptToken(token, encryptionKey, iv);

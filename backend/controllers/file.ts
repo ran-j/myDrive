@@ -289,7 +289,7 @@ class FileController {
     getDownloadToken = async(req: RequestType, res: Response) => {
 
         if (!req.user) {
-            return 
+            return res.send({message: 'no user'});
         }
     
         try {
